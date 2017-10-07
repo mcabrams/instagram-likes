@@ -1,0 +1,5 @@
+git+git://github.com/mcabrams/flask-testing.git#egg=Flask-Testing
+bpython
+flask==0.12.2
+isort
+selenium==2.53.6
