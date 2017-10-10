@@ -1,1 +1,4 @@
 *.pyc
+
+# Docker environment variable file
+*.env

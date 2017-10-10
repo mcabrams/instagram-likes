@@ -6,6 +6,10 @@ services:
     command: flask run --host=0.0.0.0
     environment:
       FLASK_APP: app.py
+      FLASK_DEBUG: 1
+      OAUTHLIB_INSECURE_TRANSPORT: 1
+    env_file:
+      - ./web/web.env
     volumes:
       - ./web:/app
     ports:
