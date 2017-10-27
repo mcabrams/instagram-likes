@@ -1,0 +1,14 @@
+{
+  "name": "instagram-likes",
+  "version": "1.0.0",
+  "description": "`docker-compose -f docker-compose.yml -f docker-compose.test.yml build` `docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d` `docker-compose exec web bash` `python acceptance_tests/test_likes.py`",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'hi'"
+  },
+  "author": "Matthew Abrams <mcabrams1@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^3.8.1"
+  }
+}
