@@ -1,7 +1,7 @@
 import os
 from collections import Counter
 
-from flask import Flask, redirect, request, session
+from flask import Flask, redirect, render_template, request, session
 from flask.json import jsonify
 from requests_oauthlib import OAuth2Session
 
@@ -26,7 +26,7 @@ def instagram_api(token=None):
 
 @app.route('/')
 def home():
-    return 'Instagram'
+    return render_template('index.html')
 
 
 @app.route('/login')

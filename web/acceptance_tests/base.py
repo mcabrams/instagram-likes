@@ -7,9 +7,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.remote import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from app import app
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from app import app
 
 
 class FunctionalTestCase(LiveServerTestCase):

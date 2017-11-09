@@ -4,11 +4,20 @@
   "description": "`docker-compose -f docker-compose.yml -f docker-compose.test.yml build` `docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d` `docker-compose exec web bash` `python acceptance_tests/test_likes.py`",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'hi'"
+    "build": "webpack"
   },
   "author": "Matthew Abrams <mcabrams1@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@types/react": "^16.0.18",
+    "@types/react-dom": "^16.0.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.5.3"
   }
 }
