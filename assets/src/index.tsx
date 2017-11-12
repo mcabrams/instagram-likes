@@ -5,5 +5,5 @@ import { App } from "./components/App";
 
 ReactDOM.render(
     <App appName="Instagram Likes"/>,
-    document.getElementById("app")
+    document.getElementById("app"),
 );

@@ -1,5 +1,5 @@
 import * as React from "react";
 
-export interface AppProps { appName: string; }
+export interface IAppProps { appName: string; }
 
-export const App = (props: AppProps) => <h1>Hello from {props.appName}!</h1>;
+export const App = (props: IAppProps) => <h1>Hello from {props.appName}!</h1>;
