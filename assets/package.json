@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json -t verbose"
   },
   "author": "Matthew Abrams <mcabrams1@gmail.com>",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.2.3",
     "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.3.0",
     "tslint-react": "^3.2.0",
     "typescript": "^2.5.3"
   }
