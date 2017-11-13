@@ -48,7 +48,7 @@ def callback():
 
     session['oauth_token'] = token
 
-    return jsonify(instagram.get(API_PATH + '/users/self/media/recent/').json())
+    return render_template('logged_in.html')
 
 
 @app.route("/like-counts")
