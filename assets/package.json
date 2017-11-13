@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "lint": "tslint -p tsconfig.json -t verbose"
+    "lint": "tslint -p tsconfig.json -t verbose",
+    "watch": "webpack --watch --colors --progress"
   },
   "author": "Matthew Abrams <mcabrams1@gmail.com>",
   "license": "ISC",
