@@ -15,9 +15,12 @@
     "@types/react-dom": "^16.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "webpack": "^3.8.1"
   },
   "devDependencies": {
+    "@types/react-redux": "^5.0.12",
     "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.2.3",
     "tslint": "^5.8.0",
