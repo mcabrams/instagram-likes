@@ -39,5 +39,5 @@ services:
       - assets:/app/dist
       - ./assets:/app
       - node_modules:/app/node_modules
-      - ./node_modules:/pacakage/node_modules
+      - ./node_modules:/package/node_modules
     command: ./entrypoint.sh
