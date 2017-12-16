@@ -12,12 +12,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { App } from './components/App';
 import * as reducers from './ducks';
 import { instagramAuthEpic }  from './ducks/instagramAuth/operations';
-
-const rootReducer = combineReducers(reducers);
+import { InstagramAuthState }  from './ducks/instagramAuth/reducers';
 
 const routes = {
   '/': {
-    title: 'itslit',
+    title: 'Instagram Likes',
   },
 };
 
@@ -36,8 +35,32 @@ const rootEpic = combineEpics(
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
+interface MainState {
+  instagramAuth: InstagramAuthState;
+}
+
+interface RouterState {
+  hash: string;
+  search: string;
+  pathname: string;
+  query: { [key: string]: string | number };
+  params: { [key: string]: string | number };
+}
+
+export interface RootState {
+  main: MainState;
+  router: RouterState;
+}
+
+const mainReducer = combineReducers<MainState>(reducers);
+
+const rootReducer = combineReducers<RootState>({
+  main: mainReducer,
+  router: reducer,
+});
+
 const store = createStore(
-  combineReducers({ root: rootReducer, router: reducer }),
+  rootReducer,
   composeWithDevTools(
 		enhancer,
 		applyMiddleware(middleware, epicMiddleware),

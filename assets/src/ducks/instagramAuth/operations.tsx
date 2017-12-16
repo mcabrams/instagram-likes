@@ -5,6 +5,8 @@ export const instagramAuthEpic = (action$, store) => {
   return action$.ofType('FETCH_INSTAGRAM_LOGIN_STATE')
     .mergeMap((action) => {
       return ajax.getJSON('/instagram-oauth-token')
-        .map(response => fetchInstagramLoginStateFulfilled(response));
+        .map((response: boolean | null) => {
+          return fetchInstagramLoginStateFulfilled(response);
+        });
     });
 };
