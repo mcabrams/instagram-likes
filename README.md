@@ -3,6 +3,8 @@
 `docker-compose exec web bash`
 `python acceptance_tests/test_likes.py`
 
+`docker-compose run asset bash`
+`npm run build`
 
 ## NGINX configuration between development and test
 

@@ -5,4 +5,3 @@ COPY ./package.json ./yarn.lock /app/
 ENV PATH $PATH:/app/node_modules/.bin
 RUN yarn install
 ADD ./ /app/
-RUN npm run build
