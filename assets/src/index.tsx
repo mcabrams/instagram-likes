@@ -11,8 +11,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { App } from './components/App';
 import * as reducers from './ducks';
-import { instagramAuthEpic }  from './ducks/instagramAuth/operations';
-import { InstagramAuthState }  from './ducks/instagramAuth/reducers';
+import { instagramAuthEpic } from './ducks/instagramAuth/operations';
+import { InstagramAuthState } from './ducks/instagramAuth/reducers';
+import {
+  Actions as InstagramAuthActions,
+} from './ducks/instagramAuth/actions';
 
 const routes = {
   '/': {
@@ -52,6 +55,9 @@ export interface RootState {
   router: RouterState;
 }
 
+export type RootAction =
+  | InstagramAuthActions;
+
 const mainReducer = combineReducers<MainState>(reducers);
 
 const rootReducer = combineReducers<RootState>({
@@ -69,6 +75,7 @@ const store = createStore(
 );
 
 const initialLocation = store.getState().router;
+// tslint:disable-next-line:strict-boolean-expressions
 if (initialLocation) {
   store.dispatch(initializeCurrentLocation(initialLocation));
 }
