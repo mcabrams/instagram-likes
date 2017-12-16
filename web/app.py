@@ -67,6 +67,11 @@ def like_counts():
     return jsonify(Counter(username_list))
 
 
+@app.route("/instagram-oauth-token")
+def instagram_oauth_token():
+    return jsonify(session.get('oauth_token'))
+
+
 def data_to_ids(data):
     posts = data['data']
     return [p['id'] for p in posts if p['likes']['count'] > 0]
