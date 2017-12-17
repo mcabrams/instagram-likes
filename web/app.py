@@ -48,7 +48,7 @@ def callback():
 
     session['oauth_token'] = token
 
-    return render_template('logged_in.html')
+    return render_template('index.html')
 
 
 @app.route("/like-counts")
@@ -75,5 +75,3 @@ def instagram_oauth_token():
 def data_to_ids(data):
     posts = data['data']
     return [p['id'] for p in posts if p['likes']['count'] > 0]
-
-#  def data_to_post_likes(data):
