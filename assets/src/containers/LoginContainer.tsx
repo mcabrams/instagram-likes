@@ -5,7 +5,7 @@ import { fetchInstagramLoginState } from '../ducks/instagramAuth/actions';
 import { RootState } from '../index';
 
 export interface InstagramLoginProps {
-  loggedIn: boolean;
+  loggedInAs: string | null;
   requestingLogin: boolean;
 }
 
@@ -15,8 +15,8 @@ class InstagramLogin extends React.Component<InstagramLoginProps> {
   }
 
   render() {
-    if (this.props.loggedIn) {
-      return <p>Logged In</p>;
+    if (this.props.loggedInAs) {
+      return <p>Logged In as {this.props.loggedInAs}</p>;
     }
 
     if (this.props.requestingLogin) {
@@ -31,7 +31,7 @@ class InstagramLogin extends React.Component<InstagramLoginProps> {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    loggedIn: state.main.instagramAuth.loggedIn,
+    loggedInAs: state.main.instagramAuth.loggedInAs,
     requestingLogin: state.main.instagramAuth.requestingLogin,
   };
 };

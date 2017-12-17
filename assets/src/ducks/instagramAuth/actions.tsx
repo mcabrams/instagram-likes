@@ -3,12 +3,23 @@ export interface FetchInstagramLoginStateAction {
 }
 
 export interface FetchInstagramLoginStateFulfilledAction {
-  loggedIn: boolean;
+  loggedInAs: string | null;
   type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED';
 }
 
+export interface FetchInstagramLikeStatsAction {
+  type: 'FETCH_INSTAGRAM_LIKE_STATS';
+}
+
+export interface FetchInstagramLikeStatsFulfilledAction {
+  payload: object;
+  type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED';
+}
+
 export type Actions = FetchInstagramLoginStateAction
-  | FetchInstagramLoginStateFulfilledAction;
+  | FetchInstagramLoginStateFulfilledAction
+  | FetchInstagramLikeStatsAction
+  | FetchInstagramLikeStatsFulfilledAction;
 
 export function fetchInstagramLoginState(): FetchInstagramLoginStateAction {
   return {
@@ -17,9 +28,23 @@ export function fetchInstagramLoginState(): FetchInstagramLoginStateAction {
 }
 
 export function fetchInstagramLoginStateFulfilled(
-  loggedIn: boolean | null): FetchInstagramLoginStateFulfilledAction {
+  payload: {user: {username: string}}): FetchInstagramLoginStateFulfilledAction {
   return {
-    loggedIn: !!loggedIn,
+    loggedInAs: payload.user.username,
     type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED',
+  };
+}
+
+export function fetchInstagramLikeStats(): FetchInstagramLikeStatsAction {
+  return {
+    type: 'FETCH_INSTAGRAM_LIKE_STATS',
+  };
+}
+
+export function fetchInstagramLikeStatsFulfilled(
+  payload: object): FetchInstagramLikeStatsFulfilledAction {
+  return {
+    payload,
+    type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED',
   };
 }

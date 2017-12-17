@@ -11,7 +11,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { App } from './components/App';
 import * as reducers from './ducks';
-import { instagramAuthEpic } from './ducks/instagramAuth/operations';
+import {
+  instagramLikeStatsEpic, instagramAuthEpic,
+} from './ducks/instagramAuth/operations';
 import { InstagramAuthState } from './ducks/instagramAuth/reducers';
 import {
   Actions as InstagramAuthActions,
@@ -33,6 +35,7 @@ const {
 });
 
 const rootEpic = combineEpics(
+  instagramLikeStatsEpic,
   instagramAuthEpic,
 );
 
