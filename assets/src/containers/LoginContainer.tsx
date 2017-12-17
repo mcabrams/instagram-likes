@@ -2,16 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchInstagramLoginState } from '../ducks/instagramAuth/actions';
-import { RootState } from '../index';
+import { Dispatch, RootState } from '../index';
 
 export interface InstagramLoginProps {
   loggedInAs: string | null;
   requestingLogin: boolean;
+  fetchLoginState: () => any;
 }
 
 class InstagramLogin extends React.Component<InstagramLoginProps> {
   componentDidMount() {
-    this.props.dispatch(fetchInstagramLoginState());
+    this.props.fetchLoginState();
   }
 
   render() {
@@ -36,6 +37,13 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const LoginContainer = connect(mapStateToProps)(InstagramLogin);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    fetchLoginState: () => dispatch(fetchInstagramLoginState()),
+  };
+};
+
+const LoginContainer = connect(
+  mapStateToProps, mapDispatchToProps)(InstagramLogin);
 
 export default LoginContainer;

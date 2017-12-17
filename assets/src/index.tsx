@@ -61,6 +61,8 @@ export interface RootState {
 export type RootAction =
   | InstagramAuthActions;
 
+export type Dispatch = (action: RootAction) => void;
+
 const mainReducer = combineReducers<MainState>(reducers);
 
 const rootReducer = combineReducers<RootState>({
