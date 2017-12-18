@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'reactbulma';
+
+import './LoginContainer.css';
 
 import { fetchInstagramLoginState } from '../ducks/instagramAuth/actions';
 import { Dispatch, RootState } from '../index';
@@ -17,7 +20,7 @@ class InstagramLogin extends React.Component<InstagramLoginProps> {
 
   render() {
     if (this.props.loggedInAs) {
-      return <p>Logged In as {this.props.loggedInAs}</p>;
+      return <p>Logged in as {this.props.loggedInAs}</p>;
     }
 
     if (this.props.requestingLogin) {
@@ -25,7 +28,12 @@ class InstagramLogin extends React.Component<InstagramLoginProps> {
     }
 
     return (
-      <a href="/login">Login to Instagram</a>
+      <Button as="a" href="/login" large={true} primary={true}>
+        <Icon className="instagram-icon">
+          <i className="fa fa-instagram"/>
+        </Icon>
+        Login to Instagram to find out!
+      </Button>
     );
   }
 }

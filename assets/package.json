@@ -2,7 +2,8 @@
   "name": "instagram-likes",
   "version": "1.0.0",
   "description": "`docker-compose -f docker-compose.yml -f docker-compose.test.yml build` `docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d` `docker-compose exec web bash` `python acceptance_tests/test_likes.py`",
-  "main": "index.js",
+  "main": "./src/index.tsx",
+  "types": "./src/index.d.ts",
   "scripts": {
     "build": "webpack",
     "lint": "tslint -p tsconfig.json -t verbose",
@@ -16,6 +17,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
+    "reactbulma": "^1.1.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-little-router": "^14.2.3",
@@ -26,7 +28,9 @@
   "devDependencies": {
     "@types/react-redux": "^5.0.12",
     "awesome-typescript-loader": "^3.2.3",
+    "css-loader": "^0.28.7",
     "source-map-loader": "^0.2.3",
+    "style-loader": "^0.19.1",
     "tslint": "^5.8.0",
     "tslint-config-airbnb": "^5.3.0",
     "tslint-react": "^3.2.0",
