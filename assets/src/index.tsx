@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { combineReducers, compose, createStore, applyMiddleware } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import {
-  routerForBrowser, initializeCurrentLocation,
+  RouterState, routerForBrowser, initializeCurrentLocation,
 } from 'redux-little-router';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -43,14 +43,6 @@ const epicMiddleware = createEpicMiddleware(rootEpic);
 
 interface MainState {
   instagramAuth: InstagramAuthState;
-}
-
-interface RouterState {
-  hash: string;
-  search: string;
-  pathname: string;
-  query: { [key: string]: string | number };
-  params: { [key: string]: string | number };
 }
 
 export interface RootState {
