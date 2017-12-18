@@ -12,3 +12,7 @@ The nginx configuration does not include an upstream entry because this is
 concatted during container creation. This allows us to differentiate the
 port we serve to; this is useful for using different ports between the local
 development server and the acceptance test server.
+
+## Javascript Tests
+`docker-compose run asset bash`
+`npm run test` or `npm run test:watch`
