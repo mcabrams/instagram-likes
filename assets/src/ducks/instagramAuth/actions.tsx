@@ -28,9 +28,9 @@ export function fetchInstagramLoginState(): FetchInstagramLoginStateAction {
 }
 
 export function fetchInstagramLoginStateFulfilled(
-  payload: {user: {username: string}}): FetchInstagramLoginStateFulfilledAction {
+  payload: null | {user: {username: string}}): FetchInstagramLoginStateFulfilledAction {
   return {
-    loggedInAs: payload.user.username,
+    loggedInAs: payload && payload.user.username,
     type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED',
   };
 }

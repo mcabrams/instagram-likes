@@ -13,7 +13,15 @@ export interface InstagramStatsProps {
 
 class InstagramStats extends React.Component<InstagramStatsProps> {
   componentDidMount() {
-    this.props.fetchStats();
+    if (this.props.loggedIn) {
+      this.props.fetchStats();
+    }
+  }
+
+  componentWillReceiveProps(nextProps: InstagramStatsProps) {
+    if (nextProps.loggedIn !== this.props.loggedIn && nextProps.loggedIn) {
+      this.props.fetchStats();
+    }
   }
 
   render() {
