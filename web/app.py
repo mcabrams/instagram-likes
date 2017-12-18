@@ -13,7 +13,7 @@ CLIENT_ID = os.getenv('INSTAGRAM_CLIENT_ID')
 CLIENT_SECRET = os.getenv('INSTAGRAM_CLIENT_SECRET')
 AUTHORIZATION_BASE_URL = 'https://api.instagram.com/oauth/authorize/'
 TOKEN_URL = 'https://api.instagram.com/oauth/access_token'
-REDIRECT_URI = 'http://localhost:5001/authed'
+REDIRECT_URI = 'http://localhost:8001/authed'
 API_PATH = 'https://api.instagram.com/v1'
 
 
@@ -38,6 +38,12 @@ def login():
     # State is used to prevent CSRF, keep this for later.
     session['oauth_state'] = state
     return redirect(authorization_url)
+
+
+@app.route('/logout')
+def logout():
+    session['oauth_token'] = None
+    return redirect('/')
 
 
 @app.route("/authed")
