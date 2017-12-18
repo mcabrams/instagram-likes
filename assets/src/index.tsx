@@ -55,7 +55,8 @@ export type RootAction =
 
 export type Dispatch = (action: RootAction) => void;
 
-const mainReducer = combineReducers<MainState>(reducers);
+/* { ...reducers } because: https://github.com/Microsoft/TypeScript/issues/17622 */
+const mainReducer = combineReducers<MainState>({ ...reducers });
 
 const rootReducer = combineReducers<RootState>({
   main: mainReducer,
