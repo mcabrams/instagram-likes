@@ -6,6 +6,7 @@
     ],
     "jsRules": {},
     "rules": {
+      "strict-boolean-expressions": [true, "allow-boolean-or-undefined", "allow-null-union", "allow-string"],
       "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
       "import-name": [ true, { "reducers": "reducer" }]
     },

@@ -6,7 +6,7 @@ import { Dispatch, RootState } from '../index';
 
 export interface InstagramStatsProps {
   loggedIn: boolean;
-  stats: object;
+  stats: object | null;
   requestingStats: boolean;
   fetchStats: () => any;
 }
