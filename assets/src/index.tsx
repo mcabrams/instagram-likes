@@ -1,4 +1,5 @@
 import 'rxjs';
+import { ajax } from 'rxjs/observable/dom/ajax';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { combineReducers, compose, createStore, applyMiddleware } from 'redux';
@@ -39,7 +40,11 @@ const rootEpic = combineEpics(
   instagramAuthEpic,
 );
 
-const epicMiddleware = createEpicMiddleware(rootEpic);
+const epicMiddleware = createEpicMiddleware(rootEpic, {
+  dependencies: {
+    getJSON: ajax.getJSON,
+  },
+});
 
 interface MainState {
   instagramAuth: InstagramAuthState;

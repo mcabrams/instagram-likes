@@ -48,6 +48,7 @@
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.19.1",
     "ts-jest": "^21.2.4",
+    "ts-mockito": "^2.2.7",
     "tslint": "^5.8.0",
     "tslint-config-airbnb": "^5.3.0",
     "tslint-react": "^3.2.0",
