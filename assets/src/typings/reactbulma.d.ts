@@ -18,12 +18,17 @@ interface TitleProps extends BulmaProps {
   spaced: boolean;
 }
 
-interface MediaComponent extends React.StatelessComponent<BulmaProps> {
+interface LevelComponent extends React.StatelessComponent<BulmaProps> {
  /* NOTE: I was able to type these static properties as strings, and
   * was not warned when using them, for example like so:
   * <Media.Left>...</Media.Left>
   * That makes me less than confident that these are being typed properly,
   * so beware. */
+  Left: typeof React.Component;
+  Item: typeof React.Component;
+}
+
+interface MediaComponent extends React.StatelessComponent<BulmaProps> {
   Content: typeof React.Component;
   Left: typeof React.Component;
   Right: typeof React.Component;
@@ -37,6 +42,7 @@ declare module 'reactbulma' {
 	class Hero extends React.Component<BulmaProps> {}
 	class Icon extends React.Component<BulmaProps> {}
 	class Image extends React.Component<ImageProps> {}
+  const Level: LevelComponent;
   const Media: MediaComponent;
   class Title extends React.Component<TitleProps> {}
 	class Section extends React.Component<BulmaProps> {}
