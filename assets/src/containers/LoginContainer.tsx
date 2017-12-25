@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Icon } from 'reactbulma';
+import { Button, Icon, Image, Media } from 'reactbulma';
 
 import './LoginContainer.css';
 
@@ -20,7 +20,19 @@ class InstagramLogin extends React.Component<InstagramLoginProps> {
 
   render() {
     if (this.props.loggedInAs) {
-      return <p>Logged in as {this.props.loggedInAs}</p>;
+      return (
+        <Media>
+          <Media.Left>
+            <Image
+              is="64x64"
+              src={this.props.loggedInAs.profilePictureUrl}
+            />
+          </Media.Left>
+          <Media.Content>
+            <p>Logged in as {this.props.loggedInAs.username}</p>
+          </Media.Content>
+        </Media>
+      );
     }
 
     if (this.props.requestingLogin) {
