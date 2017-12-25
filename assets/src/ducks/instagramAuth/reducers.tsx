@@ -3,7 +3,7 @@ import { RootAction } from '../../index';
 
 export interface InstagramAuthState {
   likeStats: object | null;
-  loggedInAs: string | null;
+  loggedInAs: object | null;
   requestingLikeStats: boolean;
   requestingLogin: boolean;
 }

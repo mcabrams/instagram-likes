@@ -13,7 +13,7 @@ import {
 const mockAction$ = (action: AnyAction) => ActionsObservable.of(action);
 
 describe('instagramAuthEpic', () => {
-  const resp = { user: { username: 'foo' } };
+  const resp = { user: { username: 'foo', profile_picture: 'foo.com' } };
   const getJSON = jest.fn(url => Observable.of(resp));
   const action$ = mockAction$({ type: 'FETCH_INSTAGRAM_LOGIN_STATE' });
 

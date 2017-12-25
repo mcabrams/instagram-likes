@@ -3,7 +3,7 @@ export interface FetchInstagramLoginStateAction {
 }
 
 export interface FetchInstagramLoginStateFulfilledAction {
-  loggedInAs: string | null;
+  loggedInAs: { username: string, profilePictureUrl: string} | null;
   type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED';
 }
 
@@ -27,10 +27,20 @@ export function fetchInstagramLoginState(): FetchInstagramLoginStateAction {
   };
 }
 
+export interface LoginPayload {
+  user: {
+    username: string,
+    profile_picture: string,
+  };
+}
+
 export function fetchInstagramLoginStateFulfilled(
-  payload: null | {user: {username: string}}): FetchInstagramLoginStateFulfilledAction {
+  payload: null | LoginPayload): FetchInstagramLoginStateFulfilledAction {
   return {
-    loggedInAs: payload && payload.user.username,
+    loggedInAs: payload && {
+      username: payload.user.username,
+      profilePictureUrl: payload.user.profile_picture,
+    },
     type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED',
   };
 }

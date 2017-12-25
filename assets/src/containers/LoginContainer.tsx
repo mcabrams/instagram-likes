@@ -8,7 +8,7 @@ import { fetchInstagramLoginState } from '../ducks/instagramAuth/actions';
 import { Dispatch, RootState } from '../index';
 
 export interface InstagramLoginProps {
-  loggedInAs: string | null;
+  loggedInAs: {username: string, profilePictureUrl: string} | null;
   requestingLogin: boolean;
   fetchLoginState: () => any;
 }

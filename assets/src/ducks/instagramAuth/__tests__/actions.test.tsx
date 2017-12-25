@@ -23,14 +23,19 @@ describe('fetchInstagramLoginStateFulfilled', () => {
 
   it('should mark loggedInAs if proper payload', () => {
     const username = 'foobar';
+    const profilePictureUrl = 'foobar.com';
     const payload = {
       user: {
         username,
+        profile_picture: profilePictureUrl,
       },
     };
 
     expect(fetchInstagramLoginStateFulfilled(payload)).toEqual({
-      loggedInAs: username,
+      loggedInAs: {
+        username,
+        profilePictureUrl,
+      },
       type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED',
     });
   });

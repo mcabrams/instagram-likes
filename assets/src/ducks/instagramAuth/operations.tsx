@@ -4,6 +4,7 @@ import { ActionsObservable } from 'redux-observable';
 import {
   FetchInstagramLoginStateAction,
   FetchInstagramLikeStatsAction,
+  LoginPayload,
   fetchInstagramLoginStateFulfilled,
   fetchInstagramLikeStatsFulfilled,
 } from './actions';
@@ -17,7 +18,7 @@ export const instagramAuthEpic =
     return action$.ofType('FETCH_INSTAGRAM_LOGIN_STATE')
       .mergeMap((action: FetchInstagramLoginStateAction) => {
         return getJSON('/instagram-oauth-token')
-          .map((response: {user: {username: string}}) => {
+          .map((response: LoginPayload) => {
             return fetchInstagramLoginStateFulfilled(response);
           });
       });
