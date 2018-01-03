@@ -1,7 +1,7 @@
 import os
 from collections import Counter
 
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, abort, redirect, render_template, request, session
 from flask.json import jsonify
 from requests_oauthlib import OAuth2Session
 
@@ -18,6 +18,9 @@ API_PATH = 'https://api.instagram.com/v1'
 
 
 def instagram_api(token=None):
+    if not session.get('oauth_state'):
+        abort(401)
+
     instagram = OAuth2Session(CLIENT_ID, state=session['oauth_state'],
                               token=token, redirect_uri=REDIRECT_URI)
     instagram._client.default_token_placement = 'query'
@@ -59,13 +62,20 @@ def callback():
 
 @app.route("/like-counts")
 def like_counts():
+    oauth_token = session.get('oauth_token')
+    oauth_state = session.get('oauth_state')
+
+    if not (oauth_token and oauth_state):
+        abort(401)
+
     instagram = instagram_api(token=session['oauth_token'])
     data = instagram.get(API_PATH + '/users/self/media/recent/').json()
 
     all_post_likes = []
 
     for post_id in data_to_ids(data):
-        post_likes = instagram.get(API_PATH + '/media/{}/likes'.format(post_id)).json()['data']
+        response = instagram.get(API_PATH + '/media/{}/likes'.format(post_id))
+        post_likes = response.json()['data']
         all_post_likes += post_likes
 
     username_list = [l['username'] for l in all_post_likes]
