@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { instagramAuthEpic, instagramLikeStatsEpic } from '../operations';
 import {
+  fetchInstagramLikeStatsFailed,
   fetchInstagramLoginStateFulfilled,
   fetchInstagramLikeStatsFulfilled,
 } from '../actions';
@@ -64,6 +65,17 @@ describe('instagramLikeStatsEpic', () => {
       .subscribe(() => {
         expect(getJSON).toHaveBeenCalledTimes(1);
         expect(getJSON).toHaveBeenCalledWith('/like-counts');
+      });
+  });
+
+  it('dispatches failure action when AjaxError', () => {
+    const getJSON500 = jest.fn(url => Observable.throw({}));
+    const expectedOutputActions = [fetchInstagramLikeStatsFailed()];
+
+    instagramLikeStatsEpic(action$, null, { getJSON: getJSON500 })
+      .toArray()
+      .subscribe((actualOutputActions: AnyAction[]) => {
+        expect(actualOutputActions).toEqual(expectedOutputActions);
       });
   });
 });

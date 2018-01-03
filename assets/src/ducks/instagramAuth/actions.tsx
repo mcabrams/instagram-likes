@@ -16,9 +16,14 @@ export interface FetchInstagramLikeStatsFulfilledAction {
   type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED';
 }
 
+interface FetchInstagramLikeStatsFailedAction {
+  type: 'FETCH_INSTAGRAM_LIKE_STATS_FAILED';
+}
+
 export type Actions = FetchInstagramLoginStateAction
   | FetchInstagramLoginStateFulfilledAction
   | FetchInstagramLikeStatsAction
+  | FetchInstagramLikeStatsFailedAction
   | FetchInstagramLikeStatsFulfilledAction;
 
 export function fetchInstagramLoginState(): FetchInstagramLoginStateAction {
@@ -56,5 +61,12 @@ export function fetchInstagramLikeStatsFulfilled(
   return {
     payload,
     type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED',
+  };
+}
+
+export function fetchInstagramLikeStatsFailed():
+  FetchInstagramLikeStatsFailedAction {
+  return {
+    type: 'FETCH_INSTAGRAM_LIKE_STATS_FAILED',
   };
 }

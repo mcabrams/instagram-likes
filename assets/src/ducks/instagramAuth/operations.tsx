@@ -7,6 +7,7 @@ import {
   LoginPayload,
   fetchInstagramLoginStateFulfilled,
   fetchInstagramLikeStatsFulfilled,
+  fetchInstagramLikeStatsFailed,
 } from './actions';
 import { RootState } from '../../index';
 
@@ -35,5 +36,6 @@ export const instagramLikeStatsEpic =
           .map((response: object) => {
             return fetchInstagramLikeStatsFulfilled(response);
           });
-      });
+      })
+      .catch(err => Observable.of(fetchInstagramLikeStatsFailed()));
   };

@@ -1,8 +1,12 @@
 import { Reducer } from 'redux';
 import { RootAction } from '../../index';
 
+export interface LikeStats {
+  error?: string;
+}
+
 export interface InstagramAuthState {
-  likeStats: object | null;
+  likeStats: LikeStats | null;
   loggedInAs: object | null;
   requestingLikeStats: boolean;
   requestingLogin: boolean;
@@ -22,6 +26,14 @@ const reducer: Reducer<InstagramAuthState> =
         return {
           ...state,
           requestingLikeStats: true,
+        };
+      case 'FETCH_INSTAGRAM_LIKE_STATS_FAILED':
+        return {
+          ...state,
+          requestingLikeStats: false,
+          likeStats: {
+            error: 'Failed to fetch instagram like stats.',
+          },
         };
       case 'FETCH_INSTAGRAM_LOGIN_STATE':
         return {

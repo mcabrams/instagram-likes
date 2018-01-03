@@ -2,11 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchInstagramLikeStats } from '../ducks/instagramAuth/actions';
+import { LikeStats } from '../ducks/instagramAuth/reducers';
 import { Dispatch, RootState } from '../index';
 
 export interface InstagramStatsProps {
   loggedIn: boolean;
-  stats: object | null;
+  stats: LikeStats | null;
   requestingStats: boolean;
   fetchStats: () => any;
 }
@@ -33,8 +34,8 @@ class InstagramStats extends React.Component<InstagramStatsProps> {
       return <p>Calculating stats...</p>;
     }
 
-    if (!this.props.stats) {
-      return <p>Could not calculate stats.</p>;
+    if (!this.props.stats || this.props.stats.error) {
+      return <p>Sorry, we could not calculate your stats.</p>;
     }
 
     return (
