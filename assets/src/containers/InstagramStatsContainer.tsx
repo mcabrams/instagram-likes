@@ -1,48 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { InstagramStats } from '../components/InstagramStats';
 import { fetchInstagramLikeStats } from '../ducks/instagramAuth/actions';
-import { LikeStats } from '../ducks/instagramAuth/reducers';
 import { Dispatch, RootState } from '../index';
-
-export interface InstagramStatsProps {
-  loggedIn: boolean;
-  stats: LikeStats | null;
-  requestingStats: boolean;
-  fetchStats: () => any;
-}
-
-class InstagramStats extends React.Component<InstagramStatsProps> {
-  componentDidMount() {
-    if (this.props.loggedIn) {
-      this.props.fetchStats();
-    }
-  }
-
-  componentWillReceiveProps(nextProps: InstagramStatsProps) {
-    if (nextProps.loggedIn !== this.props.loggedIn && nextProps.loggedIn) {
-      this.props.fetchStats();
-    }
-  }
-
-  render() {
-    if (!this.props.loggedIn) {
-      return <p>Log in to view stats.</p>;
-    }
-
-    if (this.props.requestingStats) {
-      return <p>Calculating stats...</p>;
-    }
-
-    if (!this.props.stats || this.props.stats.error) {
-      return <p>Sorry, we could not calculate your stats.</p>;
-    }
-
-    return (
-      <p>{JSON.stringify(this.props.stats)}</p>
-    );
-  }
-}
 
 const mapStateToProps = (state: RootState) => {
   return {
