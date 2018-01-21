@@ -1,7 +1,8 @@
 from unittest.mock import patch
 import unittest
 
-from app import app, data_to_ids
+from app import app, data_to_ids, post_likes_to_like_stats
+from flask import Response
 
 
 class DataToIdsTestCase(unittest.TestCase):
@@ -43,40 +44,75 @@ class FlaskTestCase(unittest.TestCase):
 
 
 class LikeCountsTestCase(FlaskTestCase):
+    url = '/like-counts'
+
     def setUp(self):
         super().setUp()
         patcher = patch('app.instagram_api')
         self.instagram_api = patcher.start()
         self.addCleanup(patcher.stop)
 
+    def update_session(self, update):
+        with self.app as client:
+            with client.session_transaction() as session:
+                session.update(update)
+
     def test_returns_unauthorized_if_oauth_token_not_on_session(self):
-        response = self.app.get('/like-counts')
+        response = self.app.get(self.url)
         self.assertEqual(response.status_code, 401)
 
     def test_returns_401_if_oauth_token_but_not_oauth_state_on_session(self):
-        with self.app as client:
-            with client.session_transaction() as session:
-                session['oauth_token'] = 'foobar'
-
-        response = self.app.get('/like-counts')
+        self.update_session({'oauth_token': 'foobar'})
+        response = self.app.get(self.url)
         self.assertEqual(response.status_code, 401)
 
     def test_returns_401_if_oauth_state_but_not_oauth_token_on_session(self):
-        with self.app as client:
-            with client.session_transaction() as session:
-                session['oauth_state'] = 'foobar'
-
-        response = self.app.get('/like-counts')
+        self.update_session({'oauth_state': 'foobar'})
+        response = self.app.get(self.url)
         self.assertEqual(response.status_code, 401)
 
     def test_returns_200_if_oauth_state_and_token_on_session(self):
-        with self.app as client:
-            with client.session_transaction() as session:
-                session['oauth_state'] = 'foobar'
-                session['oauth_token'] = 'foobar'
+        self.update_session({'oauth_state': 'foobar'})
+        self.update_session({'oauth_token': 'foobar'})
 
-        response = self.app.get('/like-counts')
+        response = self.app.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+    def test_gets_at_expected_instagram_uri(self):
+        self.update_session({'oauth_state': 'foobar'})
+        self.update_session({'oauth_token': 'foobar'})
+
+        self.app.get(self.url)
+        self.instagram_api().get.assert_called_once_with(
+            'https://api.instagram.com/v1/users/self/media/recent/')
+
+    @patch('app.like_stats_from_post')
+    def test_calls_like_stats_from_posts_on_returned_json(self, like_stats):
+        like_stats.return_value = Response()
+        self.update_session({'oauth_state': 'foobar'})
+        self.update_session({'oauth_token': 'foobar'})
+
+        returned_json = self.instagram_api().get().json.return_value
+
+        self.app.get(self.url)
+
+        like_stats.assert_called_once_with(returned_json, self.instagram_api())
+
+
+class PostLikesToLikeStatsTestCase(unittest.TestCase):
+    def test_counts_likes_by_username(self):
+        post_likes = [
+            {'username': 'barry'},
+            {'username': 'barry'},
+            {'username': 'todd'},
+        ]
+
+        actual = post_likes_to_like_stats(post_likes)
+        self.assertEqual(actual, {
+            'barry': 2,
+            'todd': 1,
+        })
+
 
 if __name__ == '__main__':
     unittest.main()
