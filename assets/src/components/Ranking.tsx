@@ -8,6 +8,6 @@ export interface RankingProps {
 
 export const Ranking = (props: RankingProps) => {
   return (
-    <p>{props.rank}: {props.username}, {props.likeCount}</p>
+    <li>{props.rank}: {props.username}, {props.likeCount}</li>
   );
 };
