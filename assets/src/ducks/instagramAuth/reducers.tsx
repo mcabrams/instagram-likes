@@ -1,12 +1,19 @@
 import { Reducer } from 'redux';
 import { RootAction } from '../../index';
 
-export interface LikeStats {
-  error?: string;
+export type LikeRankingsData = {
+  username: string;
+  likeCount: number;
+  rank: number;
 }
 
+export type LikeRankings = {
+  error?: string;
+  data?: LikeRankingsData[];
+};
+
 export interface InstagramAuthState {
-  likeStats: LikeStats | null;
+  likeRankings: LikeRankings | null;
   loggedInAs: object | null;
   requestingLikeStats: boolean;
   requestingLogin: boolean;
@@ -16,7 +23,7 @@ const initialState: InstagramAuthState = {
   loggedInAs: null,
   requestingLogin: false,
   requestingLikeStats: false,
-  likeStats: null,
+  likeRankings: null,
 };
 
 const reducer: Reducer<InstagramAuthState> =
@@ -31,7 +38,7 @@ const reducer: Reducer<InstagramAuthState> =
         return {
           ...state,
           requestingLikeStats: false,
-          likeStats: {
+          likeRankings: {
             error: 'Failed to fetch instagram like stats.',
           },
         };
@@ -47,10 +54,20 @@ const reducer: Reducer<InstagramAuthState> =
           requestingLogin: false,
         };
       case 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED':
+        const data = action.payload.map(
+          ({ username, like_count, rank }) => ({
+            rank,
+            username,
+            likeCount: like_count,
+          }),
+        );
+
         return {
           ...state,
+          likeRankings: {
+            data,
+          },
           requestingLikeStats: false,
-          likeStats: action.payload,
         };
       default:
         return state;

@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { LikeStats } from '../ducks/instagramAuth/reducers';
+import { LikeRankings } from '../ducks/instagramAuth/reducers';
+import { RankingList } from './RankingList';
 
 export interface InstagramStatsProps {
   loggedIn: boolean;
-  stats: LikeStats | null;
+  stats: LikeRankings | null;
   requestingStats: boolean;
   fetchStats: () => any;
 }
@@ -36,7 +37,7 @@ export class InstagramStats extends React.Component<InstagramStatsProps> {
     }
 
     return (
-      <p>{JSON.stringify(this.props.stats)}</p>
+      <RankingList stats={this.props.stats.data} />
     );
   }
 }

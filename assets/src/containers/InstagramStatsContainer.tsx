@@ -9,7 +9,7 @@ const mapStateToProps = (state: RootState) => {
   return {
     loggedIn: !!state.main.instagramAuth.loggedInAs,
     requestingStats: state.main.instagramAuth.requestingLikeStats,
-    stats: state.main.instagramAuth.likeStats,
+    stats: state.main.instagramAuth.likeRankings,
   };
 };
 

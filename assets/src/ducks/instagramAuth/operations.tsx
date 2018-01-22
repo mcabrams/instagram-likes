@@ -5,6 +5,7 @@ import {
   FetchInstagramLoginStateAction,
   FetchInstagramLikeStatsAction,
   LoginPayload,
+  RankingResponseEntry,
   fetchInstagramLoginStateFulfilled,
   fetchInstagramLikeStatsFulfilled,
   fetchInstagramLikeStatsFailed,
@@ -33,7 +34,7 @@ export const instagramLikeStatsEpic =
     return action$.ofType('FETCH_INSTAGRAM_LIKE_STATS')
       .mergeMap((action: FetchInstagramLikeStatsAction) => {
         return getJSON('/like-counts')
-          .map((response: object) => {
+          .map((response: RankingResponseEntry[]) => {
             return fetchInstagramLikeStatsFulfilled(response);
           });
       })

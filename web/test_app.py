@@ -1,7 +1,7 @@
 from unittest.mock import patch
 import unittest
 
-from app import app, data_to_ids, post_likes_to_like_stats
+from app import app, data_to_ids, post_likes_to_like_rankings
 from flask import Response
 
 
@@ -86,7 +86,7 @@ class LikeCountsTestCase(FlaskTestCase):
         self.instagram_api().get.assert_called_once_with(
             'https://api.instagram.com/v1/users/self/media/recent/')
 
-    @patch('app.like_stats_from_post')
+    @patch('app.like_rankings_from_data')
     def test_calls_like_stats_from_posts_on_returned_json(self, like_stats):
         like_stats.return_value = Response()
         self.update_session({'oauth_state': 'foobar'})
@@ -99,19 +99,19 @@ class LikeCountsTestCase(FlaskTestCase):
         like_stats.assert_called_once_with(returned_json, self.instagram_api())
 
 
-class PostLikesToLikeStatsTestCase(unittest.TestCase):
-    def test_counts_likes_by_username(self):
+class PostLikesToLikeRankingsTestCase(unittest.TestCase):
+    def test_returns_list_of_like_rankings(self):
         post_likes = [
             {'username': 'barry'},
             {'username': 'barry'},
             {'username': 'todd'},
         ]
 
-        actual = post_likes_to_like_stats(post_likes)
-        self.assertEqual(actual, {
-            'barry': 2,
-            'todd': 1,
-        })
+        actual = post_likes_to_like_rankings(post_likes)
+        self.assertEqual(actual, [
+            {'username': 'barry', 'like_count': 2, 'rank': 1},
+            {'username': 'todd', 'like_count': 1, 'rank': 2},
+        ])
 
 
 if __name__ == '__main__':

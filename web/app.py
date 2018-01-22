@@ -60,7 +60,7 @@ def callback():
     return render_template('index.html')
 
 
-def like_stats_from_post(data, instagram_api_instance):
+def like_rankings_from_data(data, instagram_api_instance):
     all_post_likes = []
 
     for post_id in data_to_ids(data):
@@ -69,12 +69,23 @@ def like_stats_from_post(data, instagram_api_instance):
         post_likes = response.json()['data']
         all_post_likes += post_likes
 
-    return jsonify(post_likes_to_like_stats(all_post_likes))
+    return jsonify(post_likes_to_like_rankings(all_post_likes))
 
 
-def post_likes_to_like_stats(post_likes):
+def post_likes_to_like_rankings(post_likes):
     username_list = [l['username'] for l in post_likes]
-    return Counter(username_list)
+    likes_per_user = Counter(username_list).items()
+    rankings = [{'username': username, 'like_count': count}
+                for username, count
+                in likes_per_user]
+    rankings_by_like_count = sorted(rankings, key=lambda r: r['like_count'],
+                                    reverse=True)
+    rankings_with_ranks = [
+        {'rank': i + 1, **r} for i, r in
+        enumerate(rankings_by_like_count)
+    ]
+
+    return rankings_with_ranks
 
 
 @app.route("/like-counts")
@@ -87,7 +98,7 @@ def like_counts():
 
     instagram = instagram_api(token=session['oauth_token'])
     data = instagram.get(API_PATH + '/users/self/media/recent/').json()
-    return like_stats_from_post(data, instagram)
+    return like_rankings_from_data(data, instagram)
 
 
 @app.route("/instagram-oauth-token")

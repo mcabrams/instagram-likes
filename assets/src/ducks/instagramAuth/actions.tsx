@@ -11,8 +11,14 @@ export interface FetchInstagramLikeStatsAction {
   type: 'FETCH_INSTAGRAM_LIKE_STATS';
 }
 
+export interface RankingResponseEntry {
+  username: string;
+  like_count: number;
+  rank: number;
+}
+
 export interface FetchInstagramLikeStatsFulfilledAction {
-  payload: object;
+  payload: RankingResponseEntry[];
   type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED';
 }
 
@@ -57,7 +63,7 @@ export function fetchInstagramLikeStats(): FetchInstagramLikeStatsAction {
 }
 
 export function fetchInstagramLikeStatsFulfilled(
-  payload: object): FetchInstagramLikeStatsFulfilledAction {
+  payload: RankingResponseEntry[]): FetchInstagramLikeStatsFulfilledAction {
   return {
     payload,
     type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED',
