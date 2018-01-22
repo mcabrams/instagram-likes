@@ -1,16 +1,16 @@
 import { Reducer } from 'redux';
 import { RootAction } from '../../index';
 
-export type LikeRankingsData = {
+export interface LikeRankingsData {
   username: string;
   likeCount: number;
   rank: number;
 }
 
-export type LikeRankings = {
+export interface LikeRankings {
   error?: string;
   data?: LikeRankingsData[];
-};
+}
 
 export interface InstagramAuthState {
   likeRankings: LikeRankings | null;
