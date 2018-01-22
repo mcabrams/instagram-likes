@@ -7,8 +7,8 @@ export interface FetchInstagramLoginStateFulfilledAction {
   type: 'FETCH_INSTAGRAM_LOGIN_STATE_FULFILLED';
 }
 
-export interface FetchInstagramLikeStatsAction {
-  type: 'FETCH_INSTAGRAM_LIKE_STATS';
+export interface FetchInstagramLikeRankingsAction {
+  type: 'FETCH_INSTAGRAM_LIKE_RANKINGS';
 }
 
 export interface RankingResponseEntry {
@@ -17,20 +17,20 @@ export interface RankingResponseEntry {
   rank: number;
 }
 
-export interface FetchInstagramLikeStatsFulfilledAction {
+export interface FetchInstagramLikeRankingsFulfilledAction {
   payload: RankingResponseEntry[];
-  type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED';
+  type: 'FETCH_INSTAGRAM_LIKE_RANKINGS_FULFILLED';
 }
 
-interface FetchInstagramLikeStatsFailedAction {
-  type: 'FETCH_INSTAGRAM_LIKE_STATS_FAILED';
+interface FetchInstagramLikeRankingsFailedAction {
+  type: 'FETCH_INSTAGRAM_LIKE_RANKINGS_FAILED';
 }
 
 export type Actions = FetchInstagramLoginStateAction
   | FetchInstagramLoginStateFulfilledAction
-  | FetchInstagramLikeStatsAction
-  | FetchInstagramLikeStatsFailedAction
-  | FetchInstagramLikeStatsFulfilledAction;
+  | FetchInstagramLikeRankingsAction
+  | FetchInstagramLikeRankingsFailedAction
+  | FetchInstagramLikeRankingsFulfilledAction;
 
 export function fetchInstagramLoginState(): FetchInstagramLoginStateAction {
   return {
@@ -56,23 +56,23 @@ export function fetchInstagramLoginStateFulfilled(
   };
 }
 
-export function fetchInstagramLikeStats(): FetchInstagramLikeStatsAction {
+export function fetchInstagramLikeRankings(): FetchInstagramLikeRankingsAction {
   return {
-    type: 'FETCH_INSTAGRAM_LIKE_STATS',
+    type: 'FETCH_INSTAGRAM_LIKE_RANKINGS',
   };
 }
 
-export function fetchInstagramLikeStatsFulfilled(
-  payload: RankingResponseEntry[]): FetchInstagramLikeStatsFulfilledAction {
+export function fetchInstagramLikeRankingsFulfilled(
+  payload: RankingResponseEntry[]): FetchInstagramLikeRankingsFulfilledAction {
   return {
     payload,
-    type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED',
+    type: 'FETCH_INSTAGRAM_LIKE_RANKINGS_FULFILLED',
   };
 }
 
-export function fetchInstagramLikeStatsFailed():
-  FetchInstagramLikeStatsFailedAction {
+export function fetchInstagramLikeRankingsFailed():
+  FetchInstagramLikeRankingsFailedAction {
   return {
-    type: 'FETCH_INSTAGRAM_LIKE_STATS_FAILED',
+    type: 'FETCH_INSTAGRAM_LIKE_RANKINGS_FAILED',
   };
 }

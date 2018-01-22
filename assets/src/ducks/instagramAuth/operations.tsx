@@ -3,12 +3,12 @@ import { Action, Store } from 'redux';
 import { ActionsObservable } from 'redux-observable';
 import {
   FetchInstagramLoginStateAction,
-  FetchInstagramLikeStatsAction,
+  FetchInstagramLikeRankingsAction,
   LoginPayload,
   RankingResponseEntry,
   fetchInstagramLoginStateFulfilled,
-  fetchInstagramLikeStatsFulfilled,
-  fetchInstagramLikeStatsFailed,
+  fetchInstagramLikeRankingsFulfilled,
+  fetchInstagramLikeRankingsFailed,
 } from './actions';
 import { RootState } from '../../index';
 
@@ -26,17 +26,17 @@ export const instagramAuthEpic =
       });
   };
 
-export const instagramLikeStatsEpic =
+export const instagramLikeRankingsEpic =
   (action$: ActionsObservable<Action>,
    store: Store<RootState>,
    { getJSON }: {getJSON: (url: string) => Observable<object> },
   ): Observable<Action> => {
-    return action$.ofType('FETCH_INSTAGRAM_LIKE_STATS')
-      .mergeMap((action: FetchInstagramLikeStatsAction) => {
+    return action$.ofType('FETCH_INSTAGRAM_LIKE_RANKINGS')
+      .mergeMap((action: FetchInstagramLikeRankingsAction) => {
         return getJSON('/like-counts')
           .map((response: RankingResponseEntry[]) => {
-            return fetchInstagramLikeStatsFulfilled(response);
+            return fetchInstagramLikeRankingsFulfilled(response);
           });
       })
-      .catch(err => Observable.of(fetchInstagramLikeStatsFailed()));
+      .catch(err => Observable.of(fetchInstagramLikeRankingsFailed()));
   };

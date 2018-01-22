@@ -37,7 +37,7 @@ export class InstagramStats extends React.Component<InstagramStatsProps> {
     }
 
     return (
-      <RankingList stats={this.props.stats.data} />
+      <RankingList rankings={this.props.stats.data} />
     );
   }
 }

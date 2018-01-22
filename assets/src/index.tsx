@@ -13,7 +13,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { App } from './components/App';
 import * as reducers from './ducks';
 import {
-  instagramLikeStatsEpic, instagramAuthEpic,
+  instagramLikeRankingsEpic, instagramAuthEpic,
 } from './ducks/instagramAuth/operations';
 import { InstagramAuthState } from './ducks/instagramAuth/reducers';
 import {
@@ -36,7 +36,7 @@ const {
 });
 
 const rootEpic = combineEpics(
-  instagramLikeStatsEpic,
+  instagramLikeRankingsEpic,
   instagramAuthEpic,
 );
 

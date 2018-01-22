@@ -1,9 +1,9 @@
 import reducer from '../reducers';
 
-describe('FETCH_INSTAGRAM_LIKE_STATS_FULFILLED', () => {
+describe('FETCH_INSTAGRAM_LIKE_RANKINGS_FULFILLED', () => {
   it('should set likeRankings', () => {
     const action = {
-      type: 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED',
+      type: 'FETCH_INSTAGRAM_LIKE_RANKINGS_FULFILLED',
       payload: [
         {
           username: 'fred',
@@ -34,7 +34,7 @@ describe('FETCH_INSTAGRAM_LIKE_STATS_FULFILLED', () => {
         ],
       },
       loggedInAs: null,
-      requestingLikeStats: false,
+      requestingLikeRankings: false,
       requestingLogin: false,
     });
   });

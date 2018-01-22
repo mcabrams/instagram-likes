@@ -4,11 +4,11 @@ import { ActionsObservable } from 'redux-observable';
 
 import { Observable } from 'rxjs/Observable';
 
-import { instagramAuthEpic, instagramLikeStatsEpic } from '../operations';
+import { instagramAuthEpic, instagramLikeRankingsEpic } from '../operations';
 import {
-  fetchInstagramLikeStatsFailed,
+  fetchInstagramLikeRankingsFailed,
   fetchInstagramLoginStateFulfilled,
-  fetchInstagramLikeStatsFulfilled,
+  fetchInstagramLikeRankingsFulfilled,
 } from '../actions';
 
 const mockAction$ = (action: AnyAction) => ActionsObservable.of(action);
@@ -41,19 +41,19 @@ describe('instagramAuthEpic', () => {
   });
 });
 
-describe('instagramLikeStatsEpic', () => {
+describe('instagramLikeRankingsEpic', () => {
   const resp = { foo: { bar: 'baz' } };
   const getJSON = jest.fn(url => Observable.of(resp));
-  const action$ = mockAction$({ type: 'FETCH_INSTAGRAM_LIKE_STATS' });
+  const action$ = mockAction$({ type: 'FETCH_INSTAGRAM_LIKE_RANKINGS' });
 
   afterEach(() => {
     getJSON.mockClear();
   });
 
   it('dispatches the correct actions when it is successful', () => {
-    const expectedOutputActions = [fetchInstagramLikeStatsFulfilled(resp)];
+    const expectedOutputActions = [fetchInstagramLikeRankingsFulfilled(resp)];
 
-    instagramLikeStatsEpic(action$, null, { getJSON })
+    instagramLikeRankingsEpic(action$, null, { getJSON })
       .toArray()
       .subscribe((actualOutputActions: AnyAction[]) => {
         expect(actualOutputActions).toEqual(expectedOutputActions);
@@ -61,7 +61,7 @@ describe('instagramLikeStatsEpic', () => {
   });
 
   it('gets JSON at correct url', () => {
-    instagramLikeStatsEpic(action$, null, { getJSON })
+    instagramLikeRankingsEpic(action$, null, { getJSON })
       .subscribe(() => {
         expect(getJSON).toHaveBeenCalledTimes(1);
         expect(getJSON).toHaveBeenCalledWith('/like-counts');
@@ -70,9 +70,9 @@ describe('instagramLikeStatsEpic', () => {
 
   it('dispatches failure action when AjaxError', () => {
     const getJSON500 = jest.fn(url => Observable.throw({}));
-    const expectedOutputActions = [fetchInstagramLikeStatsFailed()];
+    const expectedOutputActions = [fetchInstagramLikeRankingsFailed()];
 
-    instagramLikeStatsEpic(action$, null, { getJSON: getJSON500 })
+    instagramLikeRankingsEpic(action$, null, { getJSON: getJSON500 })
       .toArray()
       .subscribe((actualOutputActions: AnyAction[]) => {
         expect(actualOutputActions).toEqual(expectedOutputActions);

@@ -1,7 +1,7 @@
 import {
   fetchInstagramLoginState, fetchInstagramLoginStateFulfilled,
-  fetchInstagramLikeStats, fetchInstagramLikeStatsFulfilled,
-  fetchInstagramLikeStatsFailed,
+  fetchInstagramLikeRankings, fetchInstagramLikeRankingsFulfilled,
+  fetchInstagramLikeRankingsFailed,
 } from '../actions';
 
 describe('fetchInstagramLoginState', () => {
@@ -42,10 +42,10 @@ describe('fetchInstagramLoginStateFulfilled', () => {
   });
 });
 
-describe('fetchInstagramLikeStatsFailed', () => {
+describe('fetchInstagramLikeRankingsFailed', () => {
   it('should create correct action', () => {
-    expect(fetchInstagramLikeStatsFailed()).toEqual({
-      type: 'FETCH_INSTAGRAM_LIKE_STATS_FAILED',
+    expect(fetchInstagramLikeRankingsFailed()).toEqual({
+      type: 'FETCH_INSTAGRAM_LIKE_RANKINGS_FAILED',
     });
   });
 });

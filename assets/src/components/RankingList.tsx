@@ -4,11 +4,11 @@ import { LikeRankingsData } from '../ducks/instagramAuth/reducers';
 import { Ranking } from './Ranking';
 
 interface RankingListProps {
-  stats: LikeRankingsData[];
+  rankings: LikeRankingsData[];
 }
 
 export const RankingList = (props: RankingListProps) => {
-  const rankings = props.stats.map((ranking) => {
+  const rankings = props.rankings.map((ranking) => {
     return <Ranking {...ranking} key={ranking.rank} />;
   });
 

@@ -15,29 +15,29 @@ export interface LikeRankings {
 export interface InstagramAuthState {
   likeRankings: LikeRankings | null;
   loggedInAs: object | null;
-  requestingLikeStats: boolean;
+  requestingLikeRankings: boolean;
   requestingLogin: boolean;
 }
 
 const initialState: InstagramAuthState = {
   loggedInAs: null,
   requestingLogin: false,
-  requestingLikeStats: false,
+  requestingLikeRankings: false,
   likeRankings: null,
 };
 
 const reducer: Reducer<InstagramAuthState> =
   (state: InstagramAuthState = initialState, action: RootAction) => {
     switch (action.type) {
-      case 'FETCH_INSTAGRAM_LIKE_STATS':
+      case 'FETCH_INSTAGRAM_LIKE_RANKINGS':
         return {
           ...state,
-          requestingLikeStats: true,
+          requestingLikeRankings: true,
         };
-      case 'FETCH_INSTAGRAM_LIKE_STATS_FAILED':
+      case 'FETCH_INSTAGRAM_LIKE_RANKINGS_FAILED':
         return {
           ...state,
-          requestingLikeStats: false,
+          requestingLikeRankings: false,
           likeRankings: {
             error: 'Failed to fetch instagram like stats.',
           },
@@ -53,7 +53,7 @@ const reducer: Reducer<InstagramAuthState> =
           loggedInAs: action.loggedInAs,
           requestingLogin: false,
         };
-      case 'FETCH_INSTAGRAM_LIKE_STATS_FULFILLED':
+      case 'FETCH_INSTAGRAM_LIKE_RANKINGS_FULFILLED':
         const data = action.payload.map(
           ({ username, like_count, rank }) => ({
             rank,
@@ -67,7 +67,7 @@ const reducer: Reducer<InstagramAuthState> =
           likeRankings: {
             data,
           },
-          requestingLikeStats: false,
+          requestingLikeRankings: false,
         };
       default:
         return state;
