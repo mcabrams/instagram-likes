@@ -8,9 +8,9 @@ interface RankingListProps {
 }
 
 export const RankingList = (props: RankingListProps) => {
-  const rankings = props.rankings.map((ranking) => {
-    return <Ranking {...ranking} key={ranking.rank} />;
-  });
+  const rankings = props.rankings.map(ranking => (
+    <Ranking {...ranking} key={ranking.rank} />
+  ));
 
   return (
     <ul>
