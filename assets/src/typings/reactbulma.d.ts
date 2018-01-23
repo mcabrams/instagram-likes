@@ -34,6 +34,14 @@ interface MediaComponent extends React.StatelessComponent<BulmaProps> {
   Right: typeof React.Component;
 }
 
+interface TableComponent extends React.StatelessComponent<BulmaProps> {
+  Body: typeof React.Component;
+  Head: typeof React.Component;
+  Td: typeof React.Component;
+  Th: typeof React.Component;
+  Tr: typeof React.Component;
+}
+
 declare module 'reactbulma' {
 	import * as React from 'react';
 
@@ -44,6 +52,7 @@ declare module 'reactbulma' {
 	class Image extends React.Component<ImageProps> {}
   const Level: LevelComponent;
   const Media: MediaComponent;
+  const Table: TableComponent;
   class Title extends React.Component<TitleProps> {}
 	class Section extends React.Component<BulmaProps> {}
 	class SubTitle extends React.Component<BulmaProps> {}

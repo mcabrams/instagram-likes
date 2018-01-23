@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Table } from 'reactbulma';
 
 import { LikeRankingsData } from '../ducks/instagramAuth/reducers';
 import { Ranking } from './Ranking';
@@ -13,8 +14,8 @@ export const RankingList = (props: RankingListProps) => {
   ));
 
   return (
-    <ul>
+    <Table.Body>
       {rankings}
-    </ul>
+    </Table.Body>
   );
 };

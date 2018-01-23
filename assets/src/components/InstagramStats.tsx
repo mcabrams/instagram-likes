@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Section, Table } from 'reactbulma';
 
 import { LikeRankings } from '../ducks/instagramAuth/reducers';
 import { RankingList } from './RankingList';
@@ -37,7 +38,16 @@ export class InstagramStats extends React.Component<InstagramStatsProps> {
     }
 
     return (
-      <RankingList rankings={this.props.stats.data} />
+      <Table className="is-fullwidth">
+        <Table.Head>
+          <Table.Tr>
+            <Table.Th>Rank</Table.Th>
+            <Table.Th>Username</Table.Th>
+            <Table.Th>Likes</Table.Th>
+          </Table.Tr>
+        </Table.Head>
+        <RankingList rankings={this.props.stats.data} />
+      </Table>
     );
   }
 }
