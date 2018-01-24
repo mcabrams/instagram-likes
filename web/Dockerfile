@@ -1,5 +1,6 @@
 FROM python:3.6.2
 ENV PYTHONUNBUFFERED 1
+ENV FLASK_APP app.py
 WORKDIR /app
 
 # Add dependency files to the FS
