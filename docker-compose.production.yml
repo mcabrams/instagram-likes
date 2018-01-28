@@ -1,0 +1,46 @@
+version: '3'
+
+volumes:
+  assets:
+
+services:
+  nginx:
+    image: mcabrams/instagram_likes_nginx:0.0.1
+    ports:
+      - "80:8001"
+      - "443:8001" # Handling SSL at load balancer, so just forward 8001 here
+    volumes:
+      - assets:/static
+    depends_on:
+      - web
+    environment:
+      WEB_PORT: 5000
+    command: ./run.sh
+    deploy:
+      labels:
+        - "com.docker.aws.lb.arn=${ACM_CERT_ARN}"
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  web:
+    image: mcabrams/instagram_likes_web:0.0.1
+    command: flask run --host=0.0.0.0
+    environment:
+      FLASK_DEBUG: 0
+      OAUTHLIB_INSECURE_TRANSPORT: 1
+    env_file:
+      - ./web/web.production.env
+    volumes:
+      - assets:/app/assets
+    depends_on:
+      - assets
+
+  assets:
+    image: mcabrams/instagram_likes_assets:0.0.1
+    volumes:
+      - assets:/app/dist
+    command: npm run build
+    deploy:
+      restart_policy:
+          condition: on-failure
