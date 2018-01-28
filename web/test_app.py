@@ -87,8 +87,8 @@ class LikeCountsTestCase(FlaskTestCase):
             'https://api.instagram.com/v1/users/self/media/recent/')
 
     @patch('app.like_rankings_from_data')
-    def test_calls_like_stats_from_posts_on_returned_json(self, like_stats):
-        like_stats.return_value = Response()
+    def test_calls_like_rankings_from_data_on_returned_json(self, rankings):
+        rankings.return_value = Response()
         self.update_session({'oauth_state': 'foobar'})
         self.update_session({'oauth_token': 'foobar'})
 
@@ -96,7 +96,7 @@ class LikeCountsTestCase(FlaskTestCase):
 
         self.app.get(self.url)
 
-        like_stats.assert_called_once_with(returned_json, self.instagram_api())
+        rankings.assert_called_once_with(returned_json, self.instagram_api())
 
 
 class PostLikesToLikeRankingsTestCase(unittest.TestCase):
