@@ -64,7 +64,7 @@ describe('instagramLikeRankingsEpic', () => {
     instagramLikeRankingsEpic(action$, null, { getJSON })
       .subscribe(() => {
         expect(getJSON).toHaveBeenCalledTimes(1);
-        expect(getJSON).toHaveBeenCalledWith('/like-counts');
+        expect(getJSON).toHaveBeenCalledWith('/like-rankings');
       });
   });
 

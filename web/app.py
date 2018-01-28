@@ -88,8 +88,8 @@ def post_likes_to_like_rankings(post_likes):
     return rankings_with_ranks
 
 
-@app.route("/like-counts")
-def like_counts():
+@app.route("/like-rankings")
+def like_rankings():
     oauth_token = session.get('oauth_token')
     oauth_state = session.get('oauth_state')
 

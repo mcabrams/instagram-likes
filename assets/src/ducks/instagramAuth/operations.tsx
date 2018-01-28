@@ -33,7 +33,7 @@ export const instagramLikeRankingsEpic =
   ): Observable<Action> => {
     return action$.ofType('FETCH_INSTAGRAM_LIKE_RANKINGS')
       .mergeMap((action: FetchInstagramLikeRankingsAction) => {
-        return getJSON('/like-counts')
+        return getJSON('/like-rankings')
           .map((response: RankingResponseEntry[]) => {
             return fetchInstagramLikeRankingsFulfilled(response);
           });

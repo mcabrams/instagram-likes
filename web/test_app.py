@@ -43,8 +43,8 @@ class FlaskTestCase(unittest.TestCase):
         self.app = app.test_client()
 
 
-class LikeCountsTestCase(FlaskTestCase):
-    url = '/like-counts'
+class LikeRankingsTestCase(FlaskTestCase):
+    url = '/like-rankings'
 
     def setUp(self):
         super().setUp()
