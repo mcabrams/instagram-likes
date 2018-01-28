@@ -13,7 +13,7 @@ CLIENT_ID = os.getenv('INSTAGRAM_CLIENT_ID')
 CLIENT_SECRET = os.getenv('INSTAGRAM_CLIENT_SECRET')
 AUTHORIZATION_BASE_URL = 'https://api.instagram.com/oauth/authorize/'
 TOKEN_URL = 'https://api.instagram.com/oauth/access_token'
-REDIRECT_URI = 'http://localhost:8001/authed'
+REDIRECT_URI = os.getenv('REDIRECT_URI')
 API_PATH = 'https://api.instagram.com/v1'
 
 
