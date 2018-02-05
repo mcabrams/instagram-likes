@@ -13,6 +13,7 @@ export interface FetchInstagramLikeRankingsAction {
 
 export interface RankingResponseEntry {
   username: string;
+  profile_photo: string;
   like_count: number;
   rank: number;
 }

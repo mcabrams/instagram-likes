@@ -3,6 +3,7 @@ import { RootAction } from '../../index';
 
 export interface LikeRankingsData {
   username: string;
+  profilePhoto: string;
   likeCount: number;
   rank: number;
 }
@@ -55,10 +56,11 @@ const reducer: Reducer<InstagramAuthState> =
         };
       case 'FETCH_INSTAGRAM_LIKE_RANKINGS_FULFILLED':
         const data = action.payload.map(
-          ({ username, like_count, rank }) => ({
+          ({ username, like_count, profile_photo, rank }) => ({
             rank,
             username,
             likeCount: like_count,
+            profilePhoto: profile_photo,
           }),
         );
 

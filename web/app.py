@@ -17,6 +17,22 @@ REDIRECT_URI = os.getenv('REDIRECT_URI')
 API_PATH = 'https://api.instagram.com/v1'
 
 
+class InstagramAPI:
+    def __init__(self, api=None):
+        self.api = api or instagram_api()
+
+    def get_recent_likes(self):
+        return self.api.get(API_PATH + '/users/self/media/recent/').json()
+
+    def get_user_data(self, user_id):
+        res = self.api.get(API_PATH + '/users/{}'.format(user_id))
+        data = res.json()['data']
+        return {
+            'profile_picture': data['profile_picture'],
+            'username': data['username'],
+        }
+
+
 def instagram_api(token=None):
     if not session.get('oauth_state'):
         abort(401)
@@ -69,15 +85,18 @@ def like_rankings_from_data(data, instagram_api_instance):
         post_likes = response.json()['data']
         all_post_likes += post_likes
 
-    return jsonify(post_likes_to_like_rankings(all_post_likes))
+    rankings = post_likes_to_like_rankings(all_post_likes,
+                                           instagram_api_instance)
+
+    return jsonify(rankings_with_user_data(rankings, InstagramAPI(instagram_api_instance)))
 
 
-def post_likes_to_like_rankings(post_likes):
-    username_list = [l['username'] for l in post_likes]
-    likes_per_user = Counter(username_list).items()
-    rankings = [{'username': username, 'like_count': count}
-                for username, count
-                in likes_per_user]
+def post_likes_to_like_rankings(post_likes, instagram_api_instance):
+    user_ids = [l['id'] for l in post_likes]
+    likes_per_user_id = Counter(user_ids).items()
+    rankings = [{'id': user_id, 'like_count': count}
+                for user_id, count
+                in likes_per_user_id]
     rankings_by_like_count = sorted(rankings, key=lambda r: r['like_count'],
                                     reverse=True)
     rankings_with_ranks = [
@@ -86,6 +105,11 @@ def post_likes_to_like_rankings(post_likes):
     ]
 
     return rankings_with_ranks
+
+
+def rankings_with_user_data(rankings, api):
+    user_datas = [api.get_user_data(r['id']) for r in rankings]
+    return [{**u, **r} for u, r in zip(user_datas, rankings)]
 
 
 @app.route("/like-rankings")
